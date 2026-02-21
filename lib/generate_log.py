@@ -1,19 +1,25 @@
 from datetime import datetime
 import os
 
-def generate_log(data):
-    # TODO: Implement log generation logic
+def generate_log(log_data):
+    """
+    Create a log file named log_YYYYMMDD.txt and write each entry on its own line.
+    Returns the filename.
+    Raises ValueError if log_data is not a list.
+    """
+    if type(log_data) is not list:
+        raise ValueError("log_data must be a list")
 
-    # STEP 1: Validate input
-    # Hint: Check if data is a list
+    today = datetime.now().strftime("%Y%m%d")
+    filename = f"log_{today}.txt"
 
-    # STEP 2: Generate a filename with today's date (e.g., "log_20250408.txt")
-    # Hint: Use datetime.now().strftime("%Y%m%d")
+    with open(filename, "w", encoding="utf-8") as f:
+        for item in log_data:
+            f.write(f"{item}\n")
 
-    # STEP 3: Write the log entries to a file using File I/O
-    # Use a with open() block and write each line from the data list
-    # Example: file.write(f"{entry}\n")
+    return filename
 
-    # STEP 4: Print a confirmation message with the filename
-
-    pass
+if __name__ == "__main__":
+    sample = ["User logged in", "User updated profile", "Report exported"]
+    file_name = generate_log(sample)
+    print(f"Log written to {file_name}")
